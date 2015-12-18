@@ -2,63 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent" android:layout_height="match_parent"
-android:background="@drawable/launchScreen"
+android:background="@drawable/launch_screen"
 android:orientation="vertical"
 tools:context="com.avnet.memec.ui.activities.LoadingActivity">
 
-<Space
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="3" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" />
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="2">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_credential_avnetLogo"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_credential_avnetLogo"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="false"
+            android:src="@drawable/avnet_logo"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10sp"
+        android:id="@+id/loading_progress"
+        android:max="100"
+        android:clickable="false"
+        android:progressDrawable="@drawable/custom_progressbar" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5" />
+
+    <ProgressBar
+        style="@style/GenericProgressIndicator"
+        android:id="@+id/loading_gif"
         android:scaleType="fitCenter"
         android:adjustViewBounds="false"
-        android:src="@drawable/LoginLogo"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"/>
 
-</LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@android:color/white" />
 
-<Space
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="2" />
-
-<ProgressBar
-    style="?android:attr/progressBarStyleHorizontal"
-    android:layout_width="match_parent"
-    android:layout_height="10sp"
-    android:id="@+id/loading_progress"
-    android:max="100"
-    android:clickable="false"
-    android:progressDrawable="@drawable/custom_progressbar" />
-<Space
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight=".5" />
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="25dp"
-    android:scaleType="fitCenter"
-    android:adjustViewBounds="false"
-    android:src="@drawable/loading"
-    android:layout_gravity="center_horizontal" />
-<Space
-    android:layout_width="match_parent"
-    android:layout_height="1sp"
-    android:background="@android:color/white" />
-
-<Space
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="3" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" />
 </LinearLayout>

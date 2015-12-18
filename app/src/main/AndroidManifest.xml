@@ -17,7 +17,8 @@
         <activity
             android:name=".ui.activities.LoadingActivity"
             android:label="@string/title_activity_loading"
-            android:parentActivityName=".ui.activities.BaseActivity" >
+            android:parentActivityName=".ui.activities.BaseActivity"
+            android:hardwareAccelerated="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.avnet.memec.ui.activities.BaseActivity" />
