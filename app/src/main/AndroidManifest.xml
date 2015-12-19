@@ -23,7 +23,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.avnet.memec.ui.activities.BaseActivity" />
-
         </activity>
         <activity
             android:name=".ui.activities.ScanActivity"
@@ -32,6 +31,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.avnet.memec.ui.activities.BaseActivity" />
+
+
+        </activity>
+        <activity
+            android:name=".ui.activities.GatewayListActivity"
+            android:label="@string/title_activity_gateway_list"
+            android:parentActivityName=".ui.activities.BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.avnet.memec.ui.activities.BaseActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
