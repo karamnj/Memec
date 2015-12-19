@@ -4,7 +4,7 @@
 
     <!-- Primary colors -->
     <color name="theme_primary_base">#1a80b6</color>
-    <color name="theme_primary_highlight">#cd1d1f</color>
+    <color name="theme_primary_highlight">#c81d23</color>
     <color name="theme_primary_red">#cd1d1f</color>
     <color name="theme_primary_black">#2A2E34</color>
 

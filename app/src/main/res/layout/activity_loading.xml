@@ -15,7 +15,7 @@ tools:context="com.avnet.memec.ui.activities.LoadingActivity">
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="1.2">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@ tools:context="com.avnet.memec.ui.activities.LoadingActivity">
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" />
+        android:layout_weight="3" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
@@ -42,17 +42,13 @@ tools:context="com.avnet.memec.ui.activities.LoadingActivity">
         android:clickable="false"
         android:progressDrawable="@drawable/custom_progressbar" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5" />
-
     <ProgressBar
-        style="@style/GenericProgressIndicator"
-        android:id="@+id/loading_gif"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="false"
-        android:layout_gravity="center_horizontal"/>
+        android:id="@+id/progressBar2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:indeterminateDrawable="@drawable/progress_interminate"
+        android:layout_margin="5dip"/>
 
     <Space
         android:layout_width="match_parent"

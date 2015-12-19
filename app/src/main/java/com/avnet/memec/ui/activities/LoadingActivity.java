@@ -26,7 +26,5 @@ public class LoadingActivity extends BaseActivity {
         bar = (ProgressBar) findViewById(R.id.loading_progress);
         settings = PreferenceManager.getDefaultSharedPreferences(this);
         bar.setProgress(90);
-
-
     }
 }

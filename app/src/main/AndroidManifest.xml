@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.avnet.memec" android:versionCode="1">
+    package="com.avnet.memec"
+    android:versionCode="1" >
 
     <application
         android:allowBackup="true"
@@ -16,9 +17,18 @@
         </activity>
         <activity
             android:name=".ui.activities.LoadingActivity"
+            android:hardwareAccelerated="false"
             android:label="@string/title_activity_loading"
-            android:parentActivityName=".ui.activities.BaseActivity"
-            android:hardwareAccelerated="false">
+            android:parentActivityName=".ui.activities.BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.avnet.memec.ui.activities.BaseActivity" />
+
+        </activity>
+        <activity
+            android:name=".ui.activities.ScanActivity"
+            android:label="@string/title_activity_scan"
+            android:parentActivityName=".ui.activities.BaseActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.avnet.memec.ui.activities.BaseActivity" />
