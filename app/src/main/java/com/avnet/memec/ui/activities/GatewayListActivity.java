@@ -1,5 +1,7 @@
 package com.avnet.memec.ui.activities;
 
+import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.avnet.memec.R;
 
@@ -67,6 +72,50 @@ public class GatewayListActivity extends AppCompatActivity {
 
         });
 
+        //TODO Gateway Sucess Logic
+        /*//Gateway Success Dialog
+        Dialog gsuccess_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
+        gsuccess_dialog.setContentView(R.layout.dialog_gateway_success);
+        //dialog.show();
+
+        //Gateway Failure Dialog
+        final Dialog gfailure_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
+        gfailure_dialog.setContentView(R.layout.dialog_gateway_failure);
+        Button close = (Button) gfailure_dialog.findViewById(R.id.close_dialog);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gfailure_dialog.dismiss();
+            }
+        });
+        //dialog.show();*/
+
+        BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();
+        //Check BT
+        if(!ba.isEnabled()) {
+            //Bluetooth Dialog
+            final Dialog dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
+            dialog.setContentView(R.layout.dialog_layout_bluetooth);
+            ToggleButton toggleButton = (ToggleButton) dialog.findViewById(R.id.toggleButtonBT);
+            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
+                    //Enable Bluetooth
+                    Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(turnOn, 0);
+                }
+            });
+            Button close = (Button) dialog.findViewById(R.id.close_dialog);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
+
+        //Floating Action Button
         FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

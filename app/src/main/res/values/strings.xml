@@ -6,4 +6,5 @@
     <string name="title_activity_loading">LoadingActivity</string>
     <string name="title_activity_scan">ScanActivity</string>
     <string name="title_activity_gateway_list">GatewayListActivity</string>
+    <string name="title_activity_connection_settings">ConnectionSettingsActivity</string>
 </resources>
