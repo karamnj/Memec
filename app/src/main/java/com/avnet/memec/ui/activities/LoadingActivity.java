@@ -1,9 +1,12 @@
 package com.avnet.memec.ui.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.avnet.memec.R;
@@ -26,5 +29,15 @@ public class LoadingActivity extends BaseActivity {
         bar = (ProgressBar) findViewById(R.id.loading_progress);
         settings = PreferenceManager.getDefaultSharedPreferences(this);
         bar.setProgress(90);
+
+        FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoadingActivity.this, ScanActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

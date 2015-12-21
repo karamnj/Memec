@@ -1,5 +1,7 @@
 package com.avnet.memec.ui.activities;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -51,7 +53,7 @@ public class GatewayListActivity extends AppCompatActivity {
                 fl.setBackgroundColor(getResources().getColor(R.color.theme_primary_highlight));
 
                 TextView tv = (TextView) view.findViewById(R.id.gateway_text);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
                 tv.setTextColor(getResources().getColor(R.color.white));
                 // ListView Clicked item value
                 String itemValue = (String) listView.getItemAtPosition(position);
@@ -63,6 +65,16 @@ public class GatewayListActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GatewayListActivity.this, LoadingActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 }
