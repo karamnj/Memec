@@ -16,14 +16,11 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
             android:orientation="vertical"
             android:layout_gravity="top"
             android:id="@+id/head_logo">
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp"/>
-
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="42dp">
+                android:layout_height="80dp"
+                android:layout_margin="10dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -35,9 +32,7 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                     android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -147,7 +142,7 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                     android:layout_weight="6"
                     android:layout_height="wrap_content"
                     android:text="Not Connected"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textColor="@color/white"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"

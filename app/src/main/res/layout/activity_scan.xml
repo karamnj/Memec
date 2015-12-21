@@ -9,21 +9,19 @@ tools:context="com.avnet.memec.ui.activities.ScanActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="top">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:id="@+id/login_credential_avnetLogo"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="false"
@@ -31,49 +29,53 @@ tools:context="com.avnet.memec.ui.activities.ScanActivity">
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
-
-        <Space
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2" />
-        <FrameLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="top"
+            android:gravity="center_vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+                <Button
+                    android:id="@+id/scan_gateways"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:background="@drawable/round_button"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Scan for gateways"
+                    android:textSize="20dp"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:scaleType="fitCenter" />
+                <ProgressBar
+                    android:id="@+id/progress_spin"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="top|center"
+                    android:indeterminateDrawable="@drawable/progress_interminate"
+                    android:layout_margin="15dip"/>
+            </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
             <Button
-                android:id="@+id/scan_gateways"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:background="@drawable/round_button"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
                 android:gravity="center_vertical|center_horizontal"
-                android:layout_gravity="center_horizontal"
-                android:text="Scan for gateways"
-                android:textSize="20dp"
+                android:layout_gravity="end"
+                android:text="View Sensors"
+                android:textSize="18dp"
                 android:textAllCaps="false"
-                android:textColor="#fff"
-                android:scaleType="fitCenter" />
-            <ProgressBar
-                android:id="@+id/progress_spin"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="top|center"
-                android:indeterminateDrawable="@drawable/progress_interminate"
-                android:layout_margin="15dip"/>
-        </FrameLayout>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="View Sensors"
-            android:textSize="18dp"
-            android:textAllCaps="false"
-            android:background="@color/theme_primary_black"/>
+                android:background="@color/theme_primary_black"/>
+        </LinearLayout>
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
