@@ -60,7 +60,7 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                     android:paddingTop="5dp"
                     android:textColor="@color/theme_primary_highlight"/>
                 <Button
-                    android:id="@+id/close_dialog"
+                    android:id="@+id/close_activity"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="right"

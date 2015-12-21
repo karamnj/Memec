@@ -120,7 +120,7 @@ public class GatewayListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GatewayListActivity.this, LoadingActivity.class);
+                Intent intent = new Intent(GatewayListActivity.this, ConnectionSettingsActivity.class);
                 startActivity(intent);
                 finish();
             }
