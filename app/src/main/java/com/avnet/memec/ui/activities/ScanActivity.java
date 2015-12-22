@@ -2,6 +2,7 @@ package com.avnet.memec.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,18 +29,16 @@ public class ScanActivity extends AppCompatActivity {
             public void onClick(View v) {
                 scan.setBackground(getResources().getDrawable(R.drawable.round_button_progress));
                 scan.setText("Scanning for gateways...");
-                scan.setTextColor(getResources().getColor(R.color.theme_neutral_dark_grey));
+                scan.setTextColor(getResources().getColor(R.color.theme_bg_dark_grey));
                 spin.setVisibility(View.VISIBLE);
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ScanActivity.this, GatewayListActivity.class);
-                startActivity(intent);
-                finish();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(ScanActivity.this, GatewayListActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 3000);
             }
         });
 

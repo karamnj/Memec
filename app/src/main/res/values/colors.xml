@@ -6,6 +6,7 @@
     <color name="theme_primary_base">#1a80b6</color>
     <color name="theme_primary_highlight">#c81d23</color>
     <color name="theme_primary_red">#cd1d1f</color>
+    <color name="theme_primary_green">#8cb31a</color>
     <color name="theme_primary_black">#2A2E34</color>
 
     <!-- Secondary colors -->
@@ -25,6 +26,9 @@
     <color name="theme_neutral_dark_grey">#575757</color>
     <color name="theme_neutral_light_grey">#efeff4</color>
 
+    <!-- Background colors -->
+    <color name="theme_bg_dark_grey">#a0a0a0</color>
+    <color name="theme_bg_light_grey">#e5e5e5</color>
 
     <!-- Colors used in Schedule feed -->
     <color name="theme_schedule_background_orange">#f48134</color>

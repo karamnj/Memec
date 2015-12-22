@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,13 +41,32 @@ public class GatewayListActivity extends AppCompatActivity {
                 "Gateway01_02",
                 "Gateway01_03",
                 "Gateway01_04",
-                "Gateway01_05"
+                "Gateway01_05",
+                "Gateway01_06",
+                "Gateway01_07"
         };
 
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, gateway_values);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item_gateway, R.id.gateway_text, gateway_values);
 
         listView.setAdapter(adapter);
+
+        //Gateway Success Dialog
+        final Dialog gsuccess_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
+        gsuccess_dialog.setContentView(R.layout.dialog_gateway_success);
+        //gsuccess_dialog.show();
+
+        //Gateway Failure Dialog
+        final Dialog gfailure_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
+        gfailure_dialog.setContentView(R.layout.dialog_gateway_failure);
+        Button close = (Button) gfailure_dialog.findViewById(R.id.close_dialog);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gfailure_dialog.dismiss();
+            }
+        });
+        //gfailure_dialog.show();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -70,12 +90,24 @@ public class GatewayListActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                         .show();
+                gsuccess_dialog.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        gsuccess_dialog.dismiss();
+                        Intent intent = new Intent(GatewayListActivity.this, ConnectionSettingsActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 3000);
 
             }
 
         });
 
         final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        srl.setNestedScrollingEnabled(true);
+        srl.startNestedScroll(View.SCROLL_AXIS_VERTICAL);
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -91,11 +123,31 @@ public class GatewayListActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                boolean enable = false;
+                if (listView != null && listView.getChildCount() > 0) {
+                    // check if the first item of the list is visible
+                    boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
+                    // check if the top of the first item is visible
+                    boolean topOfFirstItemVisible = listView.getChildAt(0).getTop() == 0;
+                    // enabling or disabling the refresh layout
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                srl.setEnabled(enable);
+            }
+        });
+
         //TODO Gateway Sucess Logic
         /*//Gateway Success Dialog
         Dialog gsuccess_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
         gsuccess_dialog.setContentView(R.layout.dialog_gateway_success);
-        //dialog.show();
+        //gsuccess_dialog.show();
 
         //Gateway Failure Dialog
         final Dialog gfailure_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
@@ -107,7 +159,7 @@ public class GatewayListActivity extends AppCompatActivity {
                 gfailure_dialog.dismiss();
             }
         });
-        //dialog.show();*/
+        //gfailure_dialog.show();*/
 
         BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();
         //Check BT
@@ -124,8 +176,8 @@ public class GatewayListActivity extends AppCompatActivity {
                     startActivityForResult(turnOn, 0);
                 }
             });
-            Button close = (Button) dialog.findViewById(R.id.close_dialog);
-            close.setOnClickListener(new View.OnClickListener() {
+            Button close_dialog = (Button) dialog.findViewById(R.id.close_dialog);
+            close_dialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
@@ -134,7 +186,7 @@ public class GatewayListActivity extends AppCompatActivity {
             dialog.show();
         }
 
-        //Floating Action Button
+        /*//Floating Action Button
         FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +195,6 @@ public class GatewayListActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
     }
 }

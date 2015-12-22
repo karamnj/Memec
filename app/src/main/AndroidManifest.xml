@@ -56,6 +56,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.avnet.memec.ui.activities.BaseActivity" />
         </activity>
+        <activity
+            android:name=".ui.activities.SelectConnectionActivity"
+            android:label="@string/title_activity_select_connection"
+            android:parentActivityName=".ui.activities.BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.avnet.memec.ui.activities.BaseActivity" />
+        </activity>
     </application>
 
 </manifest>
