@@ -41,7 +41,7 @@ public class GatewayListActivity extends AppCompatActivity {
                 "Gateway01_02",
                 "Gateway01_03",
                 "Gateway01_04",
-                "Gateway01_05",
+                "Gateway01_05"
         };
 
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, gateway_values);

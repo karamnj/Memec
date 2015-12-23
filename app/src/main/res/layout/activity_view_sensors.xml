@@ -76,9 +76,15 @@ tools:context="com.avnet.memec.ui.activities.ViewSensorsActivity">
                     android:layout_gravity="center_horizontal"
                     android:background="@color/theme_primary_red"/>
             </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="15 sensor objects found"
+                android:layout_margin="10dp"
+                android:gravity="right"/>
 
             <ListView
-                android:id="@+id/gateway_list"
+                android:id="@+id/sensor_list"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="3dp"
                 android:layout_width="match_parent"
@@ -96,11 +102,12 @@ tools:context="com.avnet.memec.ui.activities.ViewSensorsActivity">
             android:layout_height="70dp"
             android:gravity="center_vertical|center_horizontal"
             android:layout_gravity="end"
-            android:text="View Sensors"
+            android:text="View gateway details"
             android:textSize="18dp"
             android:textAllCaps="false"
             android:background="@color/theme_primary_black"/>
     </LinearLayout>
+
 </LinearLayout>
 
 </FrameLayout>
