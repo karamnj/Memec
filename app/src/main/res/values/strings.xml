@@ -8,4 +8,5 @@
     <string name="title_activity_gateway_list">GatewayListActivity</string>
     <string name="title_activity_connection_settings">ConnectionSettingsActivity</string>
     <string name="title_activity_select_connection">SelectConnectionActivity</string>
+    <string name="title_activity_view_sensors">ViewSensorsActivity</string>
 </resources>
