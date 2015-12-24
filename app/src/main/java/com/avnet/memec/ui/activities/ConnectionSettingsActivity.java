@@ -58,6 +58,16 @@ public class ConnectionSettingsActivity extends AppCompatActivity {
             }
         });
 
+        Button viewSensors = (Button) findViewById(R.id.view_sensors);
+        viewSensors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ConnectionSettingsActivity.this, ViewSensorsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         /*//Floating Action Button
         FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

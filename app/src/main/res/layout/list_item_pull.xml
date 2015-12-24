@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pull down to refresh"
+        android:textSize="18dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/theme_primary_red"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/theme_primary_red"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/theme_primary_red"/>
+    </FrameLayout>
+    <!--<ProgressBar
+        android:id="@+id/progress_spin"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|center"
+        android:indeterminateDrawable="@drawable/progress_interminate"/>-->
+</LinearLayout>

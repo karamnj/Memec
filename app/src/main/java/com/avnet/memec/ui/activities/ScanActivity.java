@@ -21,6 +21,7 @@ public class ScanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan);
 
         final Button scan = (Button) findViewById(R.id.scan_gateways);
+        Button viewSensors = (Button) findViewById(R.id.view_sensors);
         final ProgressBar spin = (ProgressBar) findViewById(R.id.progress_spin);
         spin.setVisibility(View.GONE);
 
@@ -31,6 +32,7 @@ public class ScanActivity extends AppCompatActivity {
                 scan.setText("Scanning for gateways...");
                 scan.setTextColor(getResources().getColor(R.color.theme_bg_dark_grey));
                 spin.setVisibility(View.VISIBLE);
+                spin.bringToFront();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -39,6 +41,15 @@ public class ScanActivity extends AppCompatActivity {
                         finish();
                     }
                 }, 3000);
+            }
+        });
+
+        viewSensors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ScanActivity.this, ViewSensorsActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

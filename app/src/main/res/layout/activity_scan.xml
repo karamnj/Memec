@@ -7,28 +7,31 @@ android:background="@drawable/launch_screen"
 android:orientation="vertical"
 tools:context="com.avnet.memec.ui.activities.ScanActivity">
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_gravity="top">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/login_credential_avnetLogo"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="false"
+            android:src="@drawable/avnet_logo"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="bottom">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_gravity="top">
+            android:layout_height="0dp"
+            android:layout_weight=".3" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:id="@+id/login_credential_avnetLogo"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="false"
-                android:src="@drawable/avnet_logo"
-                android:layout_gravity="center_horizontal" />
-
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -67,6 +70,7 @@ tools:context="com.avnet.memec.ui.activities.ScanActivity">
             android:orientation="vertical"
             android:layout_gravity="bottom">
             <Button
+                android:id="@+id/view_sensors"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:gravity="center_vertical|center_horizontal"

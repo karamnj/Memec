@@ -25,6 +25,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.avnet.memec.R;
+import com.avnet.memec.ui.adaptors.GatewayListAdapter;
 
 public class GatewayListActivity extends AppCompatActivity {
 
@@ -37,17 +38,17 @@ public class GatewayListActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.gateway_list);
 
-        String[] gateway_values = new String[] { "Gateway01_01",
-                "Gateway01_02",
-                "Gateway01_03",
-                "Gateway01_04",
-                "Gateway01_05"
-        };
+        GatewayListAdapter mAdapter;
 
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, gateway_values);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item_gateway, R.id.gateway_text, gateway_values);
+        mAdapter = new GatewayListAdapter(this);
+        mAdapter.addSectionHeaderItem("");
+        mAdapter.addItem("Gateway01_01");
+        mAdapter.addItem("Gateway01_02");
+        mAdapter.addItem("Gateway01_03");
+        mAdapter.addItem("Gateway01_04");
+        mAdapter.addItem("Gateway01_05");
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(mAdapter);
 
         //Gateway Success Dialog
         final Dialog gsuccess_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
@@ -88,6 +89,7 @@ public class GatewayListActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                         .show();
+                //TODO Gateway Sucess Logic
                 gsuccess_dialog.show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -109,12 +111,12 @@ public class GatewayListActivity extends AppCompatActivity {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                final ProgressBar spin = (ProgressBar) findViewById(R.id.progress_spin);
-                spin.setVisibility(View.VISIBLE);
+                //final ProgressBar spin = (ProgressBar) findViewById(R.id.progress_spin);
+                //spin.setVisibility(View.VISIBLE);
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         srl.setRefreshing(false);
-                        spin.setVisibility(View.GONE);
+                        //spin.setVisibility(View.GONE);
                         //Check for devices and Update List View
                     }
                 }, 3000);
@@ -141,24 +143,6 @@ public class GatewayListActivity extends AppCompatActivity {
             }
         });
 
-        //TODO Gateway Sucess Logic
-        /*//Gateway Success Dialog
-        Dialog gsuccess_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
-        gsuccess_dialog.setContentView(R.layout.dialog_gateway_success);
-        //gsuccess_dialog.show();
-
-        //Gateway Failure Dialog
-        final Dialog gfailure_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
-        gfailure_dialog.setContentView(R.layout.dialog_gateway_failure);
-        Button close = (Button) gfailure_dialog.findViewById(R.id.close_dialog);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gfailure_dialog.dismiss();
-            }
-        });
-        //gfailure_dialog.show();*/
-
         BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();
         //Check BT
         if(!ba.isEnabled()) {
@@ -184,15 +168,15 @@ public class GatewayListActivity extends AppCompatActivity {
             dialog.show();
         }
 
-        /*//Floating Action Button
-        FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button viewSensors = (Button) findViewById(R.id.view_sensors);
+        viewSensors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GatewayListActivity.this, ConnectionSettingsActivity.class);
+                Intent intent = new Intent(GatewayListActivity.this, ViewSensorsActivity.class);
                 startActivity(intent);
                 finish();
             }
-        });*/
+        });
+
     }
 }

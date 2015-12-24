@@ -6,17 +6,32 @@ android:layout_height="match_parent"
 android:background="@drawable/launch_screen"
 tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="top">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/login_credential_avnetLogo"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="false"
+            android:src="@drawable/avnet_logo"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="bottom">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_gravity="top"
             android:id="@+id/head_logo">
-            <LinearLayout
+            <!--<LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -31,7 +46,7 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                     android:src="@drawable/avnet_logo"
                     android:layout_gravity="center_horizontal" />
 
-            </LinearLayout>
+            </LinearLayout>-->
 
         </LinearLayout>
         <LinearLayout
@@ -193,6 +208,7 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
             android:orientation="vertical"
             android:layout_gravity="bottom">
             <Button
+                android:id="@+id/view_sensors"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:gravity="center_vertical|center_horizontal"
