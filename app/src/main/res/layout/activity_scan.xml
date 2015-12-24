@@ -60,6 +60,7 @@ tools:context="com.avnet.memec.ui.activities.ScanActivity">
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="top|center"
+                    android:elevation="100dp"
                     android:indeterminateDrawable="@drawable/progress_interminate"
                     android:layout_margin="15dip"/>
             </FrameLayout>

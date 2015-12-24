@@ -9,4 +9,11 @@
     <string name="title_activity_connection_settings">ConnectionSettingsActivity</string>
     <string name="title_activity_select_connection">SelectConnectionActivity</string>
     <string name="title_activity_view_sensors">ViewSensorsActivity</string>
+
+    <string-array name="security_type">
+        <item>Open</item>
+        <item>WEP</item>
+        <item>WAP</item>
+        <item>WAP2</item>
+    </string-array>
 </resources>

@@ -16,4 +16,18 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:padding">0dp</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/theme_neutral_dark_grey</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_marginLeft">-5dp</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/theme_neutral_dark_grey</item>
+        <item name="android:background">@drawable/dropdown</item>
+    </style>
+
 </resources>
