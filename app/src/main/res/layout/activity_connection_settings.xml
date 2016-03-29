@@ -60,7 +60,9 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="20dp">
-                <TextView
+                <com.avnet.memec.ui.views.CustomFontTextView
+                    style="@style/clanBook"
+                    android:textStyle="bold"
                     android:id="@+id/ctd_gateway"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -82,7 +84,8 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                 android:orientation="horizontal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
-                <TextView
+                <com.avnet.memec.ui.views.CustomFontTextView
+                    style="@style/clanBook"
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
@@ -90,7 +93,8 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                     android:textSize="15dp"
                     android:paddingTop="5dp"
                     android:textColor="@color/theme_neutral_dark_grey"/>
-                <TextView
+                <com.avnet.memec.ui.views.CustomFontTextView
+                    style="@style/clanBook"
                     android:id="@+id/gateway_id"
                     android:layout_width="0dp"
                     android:layout_weight="6"
@@ -111,20 +115,22 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:paddingTop="20px">
-                <TextView
+                <com.avnet.memec.ui.views.CustomFontTextView
+                    style="@style/clanBook"
                     android:layout_width="0dp"
                     android:layout_weight="3"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:text="Number of sensors"
                     android:textSize="15dp"
                     android:layout_marginTop="-7dp"
                     android:textColor="@color/theme_neutral_dark_grey"/>
-                <TextView
+                <com.avnet.memec.ui.views.CustomFontTextView
+                    style="@style/clanBook"
                     android:id="@+id/num_sensors"
                     android:layout_width="0dp"
                     android:layout_weight="6"
                     android:layout_height="wrap_content"
-                    android:text="15"
+                    android:text="N/A"
                     android:textSize="14dp"
                     android:textColor="@color/theme_neutral_dark_grey"
                     android:paddingTop="5dp"
@@ -144,10 +150,12 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                 android:orientation="horizontal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
-                <TextView
+                <com.avnet.memec.ui.views.CustomFontTextView
+                    style="@style/clanBook"
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="WAN Status"
                     android:textSize="15dp"
                     android:textColor="@color/theme_neutral_dark_grey"/>
@@ -155,18 +163,19 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                     android:layout_width="0dp"
                     android:layout_weight="6"
                     android:layout_height="wrap_content">
-                    <TextView
+                    <com.avnet.memec.ui.views.CustomFontTextView
+                        style="@style/clanBook"
                         android:id="@+id/wan_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Not Connected"
+                        android:text="CONNECTING"
                         android:textSize="14dp"
                         android:textColor="@color/white"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:paddingRight="5dp"
                         android:paddingLeft="10dp"
-                        android:background="@color/theme_primary_red"/>
+                        android:background="@color/theme_primary_amber"/>
                     <Button
                         android:id="@+id/close_connection"
                         android:layout_width="20dp"
@@ -177,7 +186,88 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                         android:background="@drawable/white_cross"/>
                 </FrameLayout>
             </LinearLayout>
-            <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <com.avnet.memec.ui.views.CustomFontTextView
+                    style="@style/clanBook"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Server Status"
+                    android:textSize="15dp"
+                    android:textColor="@color/theme_neutral_dark_grey"/>
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="wrap_content">
+                    <com.avnet.memec.ui.views.CustomFontTextView
+                        style="@style/clanBook"
+                        android:id="@+id/server_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CONNECTING"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="10dp"
+                        android:background="@color/theme_primary_amber"/>
+                    <Button
+                        android:id="@+id/close_server_connection"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:visibility="gone"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/white_cross"/>
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <com.avnet.memec.ui.views.CustomFontTextView
+                    style="@style/clanBook"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Active WAN"
+                    android:textSize="15dp"
+                    android:textColor="@color/theme_neutral_dark_grey"/>
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="wrap_content">
+                    <com.avnet.memec.ui.views.CustomFontTextView
+                        style="@style/clanBook"
+                        android:id="@+id/active_wan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="14dp"
+                        android:textColor="@color/theme_neutral_dark_grey"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="10dp"
+                        android:editable="false"
+                        android:background="@color/theme_neutral_light_grey"/>
+                </FrameLayout>
+            </LinearLayout>
+            <com.avnet.memec.ui.views.CustomFontButton
+                style="@style/clanBook"
+                android:textColor="@color/white"
                 android:id="@+id/wan_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,7 +279,7 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@color/theme_primary_black"/>
-            <Button
+            <!--<Button
                 android:id="@+id/connect_to_wan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -200,14 +290,16 @@ tools:context="com.avnet.memec.ui.activities.ConnectionSettingsActivity">
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@color/theme_primary_black"/>
+                android:background="@color/theme_primary_black"/>-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="bottom">
-            <Button
+            <com.avnet.memec.ui.views.CustomFontButton
+                style="@style/clanBook"
+                android:textColor="@color/white"
                 android:id="@+id/view_sensors"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"

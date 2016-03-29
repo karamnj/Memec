@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:id="@+id/gateway_frame">
-    <TextView
+    <com.avnet.memec.ui.views.CustomFontTextView
+        style="@style/clanBook"
         android:id="@+id/gateway_text"
         android:layout_width="wrap_content"
         android:layout_height="60dp"

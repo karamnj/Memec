@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Memec</string>
+    <string name="app_name">Visible Things</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -12,8 +12,8 @@
 
     <string-array name="security_type">
         <item>Open</item>
-        <item>WEP</item>
-        <item>WAP</item>
-        <item>WAP2</item>
+        <item>WPA-PSK</item>
+        <item>WPA2-PSK</item>
     </string-array>
+    <string name="title_activity_sensor_details">SensorDetailsActivity</string>
 </resources>

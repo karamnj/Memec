@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal">
+    <com.avnet.memec.ui.views.CustomFontTextView
+        style="@style/clanBook"
+        android:id="@+id/sensor_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:text="Undefined"
+        android:textColor="@color/theme_neutral_dark_grey"
+        android:textSize="16dp"
+        android:gravity="left"
+        android:padding="10dp"
+        android:layout_marginLeft="5dp"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="30dp">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="30dp">
+        <ImageView
+            android:id="@+id/sensor_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/speedometer_lite"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.avnet.memec.ui.views.CustomFontTextView
+            style="@style/clanBook"
+            android:id="@+id/x"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0.01g"
+            android:textColor="@color/theme_neutral_dark_grey"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:background="@color/theme_bg_light_grey"/>
+        <com.avnet.memec.ui.views.CustomFontTextView
+            style="@style/clanBook"
+            android:id="@+id/y"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0.01g"
+            android:textColor="@color/theme_neutral_dark_grey"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:background="@color/theme_bg_light_grey"/>
+        <com.avnet.memec.ui.views.CustomFontTextView
+            style="@style/clanBook"
+            android:id="@+id/z"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0.01g"
+            android:textColor="@color/theme_neutral_dark_grey"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:padding="5dp"
+            android:background="@color/theme_bg_light_grey"/>
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

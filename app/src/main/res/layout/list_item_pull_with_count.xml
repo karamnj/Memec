@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <TextView
+    <com.avnet.memec.ui.views.CustomFontTextView
+        style="@style/clanBook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pull down to refresh"
@@ -30,11 +31,13 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/theme_primary_red"/>
     </FrameLayout>
-    <TextView
+    <com.avnet.memec.ui.views.CustomFontTextView
+        style="@style/clanBook"
+        android:textColor="@color/white"
         android:id="@+id/sensor_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="15 sensor objects found"
+        android:text="0 sensor objects found"
         android:layout_margin="10dp"
         android:gravity="right"/>
     <!--<ProgressBar

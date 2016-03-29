@@ -57,7 +57,9 @@ tools:context="com.avnet.memec.ui.activities.ViewSensorsActivity">
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="bottom">
-        <Button
+        <com.avnet.memec.ui.views.CustomFontButton
+            style="@style/clanBook"
+            android:textColor="@color/white"
             android:id="@+id/view_gateway_details"
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -74,7 +76,9 @@ tools:context="com.avnet.memec.ui.activities.ViewSensorsActivity">
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="bottom">
-        <Button
+        <com.avnet.memec.ui.views.CustomFontButton
+            style="@style/clanBook"
+            android:textColor="@color/white"
             android:id="@+id/back_to_home"
             android:layout_width="match_parent"
             android:layout_height="70dp"

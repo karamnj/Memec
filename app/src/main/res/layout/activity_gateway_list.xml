@@ -52,7 +52,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="bottom">
-            <Button
+            <com.avnet.memec.ui.views.CustomFontButton
+                style="@style/clanBook"
+                android:textColor="@color/white"
                 android:id="@+id/view_sensors"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"

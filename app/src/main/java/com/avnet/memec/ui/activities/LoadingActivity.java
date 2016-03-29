@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.avnet.memec.R;
 
-public class LoadingActivity extends BaseActivity {
+public class LoadingActivity extends AppCompatActivity {
 
     private static final String CLASS_NAME = LoadingActivity.class.getSimpleName();
 
@@ -29,7 +30,7 @@ public class LoadingActivity extends BaseActivity {
         Log.d(CLASS_NAME, "Set current object");
         bar = (ProgressBar) findViewById(R.id.loading_progress);
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-        bar.setProgress(90);
+        bar.setProgress(100);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -38,7 +39,7 @@ public class LoadingActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 2000);
 
     }
 }

@@ -17,17 +17,23 @@
     </style>
 
     <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:absListViewStyle">@style/clanBook</item>
         <item name="android:padding">0dp</item>
         <item name="android:textSize">15dp</item>
         <item name="android:textColor">@color/theme_neutral_dark_grey</item>
     </style>
 
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:absListViewStyle">@style/clanBook</item>
         <item name="android:padding">20dp</item>
         <item name="android:layout_marginLeft">-5dp</item>
         <item name="android:textSize">15dp</item>
         <item name="android:textColor">@color/theme_neutral_dark_grey</item>
         <item name="android:background">@drawable/dropdown</item>
+    </style>
+
+    <style name="clanBook" parent="@android:style/Widget.TextView">
+        <item name="com.avnet.memec:font">fonts/ufonts.com_clanpro-book-opentype.otf</item>
     </style>
 
 </resources>

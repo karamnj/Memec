@@ -8,6 +8,7 @@
     <color name="theme_primary_red">#cd1d1f</color>
     <color name="theme_primary_green">#8cb31a</color>
     <color name="theme_primary_black">#2A2E34</color>
+    <color name="theme_primary_amber">#FFC200</color>
 
     <!-- Secondary colors -->
     <color name="theme_secondary_base">#135e7f</color>

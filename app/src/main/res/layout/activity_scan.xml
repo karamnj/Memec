@@ -43,7 +43,9 @@ tools:context="com.avnet.memec.ui.activities.ScanActivity">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal">
-                <Button
+                <com.avnet.memec.ui.views.CustomFontButton
+                    style="@style/clanBook"
+                    android:textColor="@color/white"
                     android:id="@+id/scan_gateways"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
@@ -53,7 +55,6 @@ tools:context="com.avnet.memec.ui.activities.ScanActivity">
                     android:text="Scan for gateways"
                     android:textSize="20dp"
                     android:textAllCaps="false"
-                    android:textColor="#fff"
                     android:scaleType="fitCenter" />
                 <ProgressBar
                     android:id="@+id/progress_spin"
@@ -70,7 +71,9 @@ tools:context="com.avnet.memec.ui.activities.ScanActivity">
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="bottom">
-            <Button
+            <com.avnet.memec.ui.views.CustomFontButton
+                style="@style/clanBook"
+                android:textColor="@color/white"
                 android:id="@+id/view_sensors"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"

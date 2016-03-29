@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <TextView
+    <com.avnet.memec.ui.views.CustomFontTextView
+        style="@style/clanBook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pull down to refresh"

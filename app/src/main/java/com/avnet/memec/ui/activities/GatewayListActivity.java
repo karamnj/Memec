@@ -2,95 +2,66 @@ package com.avnet.memec.ui.activities;
 
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.bluetooth.BluetoothDevice;
-	import android.bluetooth.BluetoothGatt;
-	import android.bluetooth.BluetoothGattCallback;
-	import android.bluetooth.BluetoothGattCharacteristic;
-	import android.bluetooth.BluetoothGattService;
-	import android.bluetooth.BluetoothManager;
-	import android.bluetooth.BluetoothProfile;
-import android.bluetooth.le.BluetoothLeScanner;
-	import android.bluetooth.le.ScanCallback;
-	import android.bluetooth.le.ScanFilter;
-	import android.bluetooth.le.ScanResult;
-	import android.bluetooth.le.ScanSettings;
-	import android.content.Context;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.avnet.memec.R;
-
-import java.util.ArrayList;
-import java.util.List;
 import com.avnet.memec.ui.adaptors.GatewayListAdapter;
 
-public class GatewayListActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class GatewayListActivity extends BaseActivity {
 
     ListView listView ;
-
-    private BluetoothAdapter mBluetoothAdapter;
-    private static final int REQUEST_ENABLE_BT = 10;
-    private static final long SCAN_PERIOD = 10000;
-    private boolean mScanning=true;
-    private Handler mHandler;
-    private static final String TAG = "GatewayListActivity";
-    private BluetoothGatt mGatt;
-    private BluetoothLeScanner mLEScanner;
-    private ScanSettings settings;
-    private List<ScanFilter> filters;
-    BluetoothAdapter ba;
+    ArrayList<BluetoothDevice> btDevices;
+    SwipeRefreshLayout srl;
+    GatewayListAdapter mAdapter;
+    public Dialog gsuccess_dialog, gfailure_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gateway_list);
-
-        mHandler = new Handler();
-
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        mBluetoothAdapter = bluetoothManager.getAdapter();
         listView = (ListView) findViewById(R.id.gateway_list);
 
-        GatewayListAdapter mAdapter;
+        initDialogs();
+        srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        if(getIntent().getBooleanExtra("ConnectionSettingsFlow",false)){
+            scanGateway();
+        }else if(getIntent().getBooleanExtra("FailureFlow",false)){
+            gfailure_dialog.show();
+            btDevices = (ArrayList<BluetoothDevice>) getIntent().getSerializableExtra("btDeviceList");
+            init();
+        }else {
+            btDevices = (ArrayList<BluetoothDevice>) getIntent().getSerializableExtra("btDeviceList");
+            init();
+        }
 
-        mAdapter = new GatewayListAdapter(this);
-        mAdapter.addSectionHeaderItem("");
-        mAdapter.addItem("Gateway01_01");
-        mAdapter.addItem("Gateway01_02");
-        mAdapter.addItem("Gateway01_03");
-        mAdapter.addItem("Gateway01_04");
-        mAdapter.addItem("Gateway01_05");
-
-        listView.setAdapter(mAdapter);
-
+    }
+    private void initDialogs() {
         //Gateway Success Dialog
-        final Dialog gsuccess_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
+        gsuccess_dialog = new Dialog(this, R.style.Theme_Dialog);
         gsuccess_dialog.setContentView(R.layout.dialog_gateway_success);
         //gsuccess_dialog.show();
 
         //Gateway Failure Dialog
-        final Dialog gfailure_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
+        gfailure_dialog = new Dialog(this, R.style.Theme_Dialog);
         gfailure_dialog.setContentView(R.layout.dialog_gateway_failure);
         Button close = (Button) gfailure_dialog.findViewById(R.id.close_dialog);
         close.setOnClickListener(new View.OnClickListener() {
@@ -100,12 +71,61 @@ public class GatewayListActivity extends AppCompatActivity {
             }
         });
         //gfailure_dialog.show();
+    }
+    private void scanGateway(){
+        //Gateway Scanning Dialog
+        final Dialog gscan_dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
+        gscan_dialog.setContentView(R.layout.dialog_gateway_scan);
+        gscan_dialog.show();
 
+        scanLeDeviceForResult(true);
+        srl.setRefreshing(true);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(false);
+                //spin.setVisibility(View.GONE);
+                //Check for devices and Update List View
+                btDevices = getBTDeviceList();
+                Log.d("btDevices", btDevices.size() + "");
+                refreshList();
+                gscan_dialog.dismiss();
+            }
+        }, 2500);
+    }
+
+    private void init(){
+
+        mAdapter = new GatewayListAdapter(this);
+        mAdapter.addSectionHeaderItem("");
+        /*mAdapter.addItem("Gateway01_01");
+        mAdapter.addItem("Gateway01_02");
+        mAdapter.addItem("Gateway01_03");
+        mAdapter.addItem("Gateway01_04");
+        mAdapter.addItem("Gateway01_05");*/
+
+        int i = 0;
+        while (i < btDevices.size()) {
+            BluetoothDevice bt = btDevices.get(i);
+//            Log.d("DeviceName", bt.getName());
+            if(bt.getName()==null){
+                mAdapter.addItem("Undefined");
+            }else {
+                mAdapter.addItem(bt.getName());
+            }
+            i++;
+        }
+
+        listView.setAdapter(mAdapter);
+        listSetup();
+    }
+
+    private void listSetup(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+                                    final int position, long id) {
 
                 // ListView Clicked item index
                 int itemPosition = position;
@@ -120,26 +140,23 @@ public class GatewayListActivity extends AppCompatActivity {
                 String itemValue = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();
+                //Toast.makeText(getApplicationContext(), "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG).show();
                 //TODO Gateway Sucess Logic
+                TextView successText = (TextView) gsuccess_dialog.findViewById(R.id.gw_success);
+                successText.setText("You have successfully been connected to "+tv.getText());
                 gsuccess_dialog.show();
-                new Handler().postDelayed(new Runnable() {
+                /*new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run() {
-                        gsuccess_dialog.dismiss();
-                        Intent intent = new Intent(GatewayListActivity.this, ConnectionSettingsActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }, 3000);
+                    public void run() {*/
+                        connectToDevice(btDevices.get(position - 1));
+                        //gsuccess_dialog.dismiss();
+                /*    }
+                }, 1000);*/
 
             }
 
         });
 
-        final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         srl.setNestedScrollingEnabled(true);
         srl.startNestedScroll(View.SCROLL_AXIS_VERTICAL);
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -147,14 +164,42 @@ public class GatewayListActivity extends AppCompatActivity {
             public void onRefresh() {
                 //final ProgressBar spin = (ProgressBar) findViewById(R.id.progress_spin);
                 //spin.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        srl.setRefreshing(false);
-                        //spin.setVisibility(View.GONE);
-                        //Check for devices and Update List View
+                srl.setRefreshing(false);
+                if(Build.VERSION.SDK_INT < 21) {
+                    if(checkBT(mBluetoothAdapter)){
+                        if (mBluetoothAdapter.isEnabled()) {
+                            srl.setRefreshing(true);
+                            scanLeDeviceForResult(true);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    srl.setRefreshing(false);
+                                    //spin.setVisibility(View.GONE);
+                                    //Check for devices and Update List View
+                                    btDevices = getBTDeviceList();
+                                    refreshList();
+                                }
+                            }, 2500);
+                        }
                     }
-                }, 3000);
+                } else {
+                    if(checkBT(ba)){
+                        if (ba.isEnabled()) {
+                            srl.setRefreshing(true);
+                            scanLeDeviceForResult(true);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    srl.setRefreshing(false);
+                                    //spin.setVisibility(View.GONE);
+                                    //Check for devices and Update List View
+                                    btDevices = getBTDeviceList();
+                                    refreshList();
+                                }
+                            }, 2500);
+                        }
+                    }
+                }
             }
         });
 
@@ -162,6 +207,7 @@ public class GatewayListActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
@@ -178,37 +224,7 @@ public class GatewayListActivity extends AppCompatActivity {
             }
         });
 
-        BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();
-        //Check BT
-        if(!ba.isEnabled()) {
-            //Bluetooth Dialog
-            final Dialog dialog = new Dialog(GatewayListActivity.this, R.style.Theme_Dialog);
-            dialog.setContentView(R.layout.dialog_layout_bluetooth);
-            ToggleButton toggleButton = (ToggleButton) dialog.findViewById(R.id.toggleButtonBT);
-            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
-                    //Enable Bluetooth
-                    Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(turnOn, 0);
-                }
-            });
-            Button close_dialog = (Button) dialog.findViewById(R.id.close_dialog);
-            close_dialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
-        } else {
-            mLEScanner = ba.getBluetoothLeScanner();
-            settings = new ScanSettings.Builder()
-                    .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
-                    .build();
-            filters = new ArrayList<ScanFilter>();
-            scanLeDevice(true);
-        }
+
         Button viewSensors = (Button) findViewById(R.id.view_sensors);
         viewSensors.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,101 +234,35 @@ public class GatewayListActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
-        private void scanLeDevice(final boolean enable) {
+    private void refreshList(){
 
-            if(enable){
+        mAdapter = new GatewayListAdapter(this);
+        mAdapter.addSectionHeaderItem("");
 
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mScanning = false;
-                        mLEScanner.stopScan(mScanCallback);
-
-
-                    }
-                }, SCAN_PERIOD);
-
-                mScanning = true;
-                mLEScanner.startScan(filters, settings, mScanCallback);
-                // mLEScanner.startScan(mScanCallback);
-            } else {
-                mScanning = false;
-                mLEScanner.stopScan(mScanCallback);
+        int i = 0;
+        while (i < btDevices.size()) {
+            BluetoothDevice bt = btDevices.get(i);
+// Log.d("DeviceName", bt.getName());
+            if(bt.getName()==null){
+                mAdapter.addItem("Undefined");
+            }else {
+                mAdapter.addItem(bt.getName());
             }
+            i++;
         }
 
+        listView.setAdapter(null);
+        listView.setAdapter(mAdapter);
 
-        private ScanCallback mScanCallback = new ScanCallback() {
-            @Override
-            public void onScanResult(int callbackType, ScanResult result) {
-                Log.i("callbackType", String.valueOf(callbackType));
-                Log.i("result", result.toString());
-                BluetoothDevice btDevice = result.getDevice();
-                connectToDevice(btDevice);
-            }
+        listSetup();
+    }
 
-            @Override
-            public void onBatchScanResults(List<ScanResult> results) {
-                for (ScanResult sr : results) {
-                    Log.i("ScanResult - Results", sr.toString());
-                }
-            }
-
-            @Override
-            public void onScanFailed(int errorCode) {
-                Log.e("Scan Failed", "Error Code: " + errorCode);
-            }
-        };
-
-
-        public void connectToDevice(BluetoothDevice device) {
-            if (mGatt == null) {
-                mGatt = device.connectGatt(this, false, gattCallback);
-                scanLeDevice(false);// will stop after first device detection
-            }
-        }
-
-        private final BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
-            @Override
-            public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-                Log.i("onConnectionStateChange", "Status: " + status);
-                switch (newState) {
-                    case BluetoothProfile.STATE_CONNECTED:
-                        Log.i("gattCallback", "STATE_CONNECTED");
-                        gatt.discoverServices();
-                        break;
-                    case BluetoothProfile.STATE_DISCONNECTED:
-                        Log.e("gattCallback", "STATE_DISCONNECTED");
-                        break;
-                    default:
-                        Log.e("gattCallback", "STATE_OTHER");
-                }
-
-            }
-
-            @Override
-            public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-                List<BluetoothGattService> services = gatt.getServices();
-                Log.i("onServicesDiscovered", services.toString());
-                gatt.readCharacteristic(services.get(1).getCharacteristics().get
-                        (0));
-
-                gatt.readCharacteristic(services.get(1).getCharacteristics().get
-                        (1));
-
-            }
-
-            @Override
-            public void onCharacteristicRead(BluetoothGatt gatt,
-                                             BluetoothGattCharacteristic
-                                                     characteristic, int status) {
-                Log.i("onCharacteristicRead", characteristic.toString() + "++++" + characteristic.getService().toString() + "++++" + characteristic.getStringValue(0));
-                // gatt.disconnect();
-            }
-        };
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gsuccess_dialog.dismiss();
+        gfailure_dialog.dismiss();
+    }
 }
