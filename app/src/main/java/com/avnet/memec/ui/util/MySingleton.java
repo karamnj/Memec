@@ -26,6 +26,7 @@ public class MySingleton
 	public boolean bthsChecked = false;
 	public HashSet<BluetoothDevice> btDeviceHash;
 	public HashMap<String,SensorObject> sensorMap;
+	public Boolean disconnectFlow = false;
 
 	public static void initInstance()
 	{

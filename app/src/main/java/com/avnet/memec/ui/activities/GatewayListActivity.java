@@ -42,6 +42,7 @@ public class GatewayListActivity extends BaseActivity {
 
         initDialogs();
         srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        srl.setProgressViewOffset(false,0,185);
         if(getIntent().getBooleanExtra("ConnectionSettingsFlow",false)){
             scanGateway();
         }else if(getIntent().getBooleanExtra("FailureFlow",false)){
@@ -143,7 +144,8 @@ public class GatewayListActivity extends BaseActivity {
                 //Toast.makeText(getApplicationContext(), "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG).show();
                 //TODO Gateway Sucess Logic
                 TextView successText = (TextView) gsuccess_dialog.findViewById(R.id.gw_success);
-                successText.setText("You have successfully been connected to "+tv.getText());
+                successText.setText("Connecting to "+tv.getText());
+                //successText.setText("You have successfully been connected to "+tv.getText());
                 gsuccess_dialog.show();
                 /*new Handler().postDelayed(new Runnable() {
                     @Override

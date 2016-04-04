@@ -75,6 +75,7 @@ public class ViewSensorsActivity extends AppCompatActivity implements BleScanCal
         listView.setAdapter(mAdapter);
 
         srl = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        srl.setProgressViewOffset(false,0,185);
         srl.setRefreshing(false);
     }
 

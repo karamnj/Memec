@@ -48,8 +48,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -370,9 +372,10 @@ public class BaseActivity extends AppCompatActivity {
 
             mScanning = true;
             if(Build.VERSION.SDK_INT < 21){
-                UUID uuid = UUID.fromString("40f8010a-525e-11e5-8590-0002a5d50000");
+                /*UUID uuid = UUID.fromString("40f8010a-525e-11e5-8590-0002a5d50000");
                 UUID[] uuidArray = new UUID[]{uuid};
-                mBluetoothAdapter.startLeScan(uuidArray, mLeScanCallback);
+                mBluetoothAdapter.startLeScan(uuidArray, mLeScanCallback);*/
+                mBluetoothAdapter.startLeScan(mLeScanCallback);
             } else {
                 mLEScanner.startScan(filters, settings, mScanCallback);
             }
@@ -407,9 +410,10 @@ public class BaseActivity extends AppCompatActivity {
 
             mScanning = true;
             if(Build.VERSION.SDK_INT < 21){
-                UUID uuid = UUID.fromString("40f8010a-525e-11e5-8590-0002a5d50000");
+                /*UUID uuid = UUID.fromString("40f8010a-525e-11e5-8590-0002a5d50000");
                 UUID[] uuidArray = new UUID[]{uuid};
-                mBluetoothAdapter.startLeScan(uuidArray, mLeScanCallback);
+                mBluetoothAdapter.startLeScan(uuidArray, mLeScanCallback);*/
+                mBluetoothAdapter.startLeScan(mLeScanCallback);
             } else {
                 mLEScanner.startScan(filters, settings, mScanCallback);
             }
@@ -422,6 +426,31 @@ public class BaseActivity extends AppCompatActivity {
                 mLEScanner.stopScan(mScanCallback);
             }
         }
+    }
+    public static boolean hasMyService(byte[] scanRecord) {
+
+        // UUID we want to filter by (without hyphens)
+        final String myServiceID = "0000D5A502009085E5115E520A01F840";
+
+        try{
+            byte[] temp = scanRecord;
+            Collections.reverse(Arrays.asList(temp));
+            return bytesToHex(temp).contains(myServiceID);
+
+        } catch (Exception e){
+            return false;
+        }
+
+    }
+    final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
+    public static String bytesToHex(byte[] bytes) {
+        char[] hexChars = new char[bytes.length * 2];
+        for ( int j = 0; j < bytes.length; j++ ) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
     }
 
     protected void scanLeDeviceForAdvertisements(final boolean enable){
@@ -479,13 +508,22 @@ public class BaseActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Log.i("onLeScan", device.toString() + "/ " + Arrays.toString(scanRecord));
-                                UUID uuid = UUID.fromString("40f8010a-525e-11e5-8590-0002a5d50000");
-                                Log.d("onLeScan UUID", uuid.toString());
+                                List<UUID> uuids = new ArrayList<UUID>();
+                                //uuids = parseUuids(scanRecord);
+                                //UUID uuid = UUID.fromString("40f8010a-525e-11e5-8590-0002a5d50000");
+                                //UUID uuid = uuids.get(0);
+                                //Log.d("onLeScan UUID", uuid.toString());
+                                byte[] temp = scanRecord;
+                                Collections.reverse(Arrays.asList(temp));
+                                Log.d("onLeScan ScanRecord", bytesToHex(temp));
 
                                 //printScanRecord(scanRecord);
                                 //if(device.toString().contains("40f8010a-525e-11e5-8590-0002a5d50000")) {
+
+                                if(hasMyService(scanRecord)) {
                                     BluetoothDevice btDevice = device;
                                     MySingleton.getInstance().btDeviceHash.add(btDevice);
+                                }
                                 //}
                                 //connectToDevice(device);
                             }
@@ -746,9 +784,14 @@ public class BaseActivity extends AppCompatActivity {
                             intent.putExtra("btDeviceList", btDeviceList);
                             startActivity(intent);
                             finish();
+                        }else if (stopHandler && !disconnectFlow && MySingleton.getInstance().disconnectFlow) {
+                            Intent intent = new Intent(BaseActivity.this, GatewayListActivity.class);
+                            intent.putExtra("btDeviceList", btDeviceList);
+                            startActivity(intent);
+                            finish();
                         } else if (stopHandler && !disconnectFlow) {
                             Intent intent = new Intent(BaseActivity.this, GatewayListActivity.class);
-                            intent.putExtra("ConnectionSettingsFlow", true);
+                            intent.putExtra("FailureFlow", true);
                             intent.putExtra("btDeviceList", btDeviceList);
                             startActivity(intent);
                             finish();
@@ -1012,7 +1055,7 @@ public class BaseActivity extends AppCompatActivity {
                     break;
                 case BluetoothProfile.STATE_DISCONNECTED:
                     //mGatt = MySingleton.getInstance().connectedDevice.connectGatt(BaseActivity.this, true, gattFrequentCallback);
-                    Log.e("gattCallback", "STATE_DISCONNECTED "+stopHandler+"/"+disconnectFlow);
+                    Log.e("gattFrequentCallback", "STATE_DISCONNECTED "+stopHandler+"/"+disconnectFlow);
                     disconnect();
                     closeGatt();
                     //if(MySingleton.getInstance().myGattList.contains(gatt)) {
@@ -1223,7 +1266,14 @@ public class BaseActivity extends AppCompatActivity {
 
                         }
                     });
-
+                    Log.e("gattWriteCallback", "STATE_DISCONNECTED " + stopHandler + "/" + disconnectFlow);
+                    if(stopHandler && !disconnectFlow) {
+                        Intent intent = new Intent(BaseActivity.this, GatewayListActivity.class);
+                        intent.putExtra("FailureFlow", true);
+                        intent.putExtra("btDeviceList", btDeviceList);
+                        startActivity(intent);
+                        finish();
+                    }
                     break;
                 default:
                     Log.e("gattCallback", "STATE_OTHER");

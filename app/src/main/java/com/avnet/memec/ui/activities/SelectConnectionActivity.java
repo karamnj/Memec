@@ -79,10 +79,13 @@ public class SelectConnectionActivity extends BaseActivity implements AdapterVie
                 R.array.security_type, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        String compareValue = "WPA2-PSK";
+        String compareValue = MySingleton.getInstance().charValue[2];
 
         if (compareValue!=null) {
             int spinnerPosition = adapter.getPosition(compareValue);
+            spinner.setSelection(spinnerPosition);
+        }else{
+            int spinnerPosition = adapter.getPosition("WPA2-PSK");
             spinner.setSelection(spinnerPosition);
         }
 
@@ -150,8 +153,10 @@ public class SelectConnectionActivity extends BaseActivity implements AdapterVie
                 apCheckLoading.setVisibility(View.GONE);
                 apSearch.setVisibility(View.VISIBLE);
                 apObtained.setVisibility(View.GONE);
-                ssidName.setText(MySingleton.getInstance().charValue[0]);
-                ssidPwd.setText(MySingleton.getInstance().charValue[1]);
+                ssidName.setText("");
+                ssidPwd.setText("");
+                ssidName.setHint(Html.fromHtml("<i>" + MySingleton.getInstance().charValue[0] + "</i>"));
+                ssidPwd.setHint(Html.fromHtml("<i>" + MySingleton.getInstance().charValue[1] + "</i>"));
                 int spinnerPosition = adapter.getPosition(MySingleton.getInstance().charValue[2]);
                 spinner.setSelection(spinnerPosition);
                 /*ssidName.setText("");

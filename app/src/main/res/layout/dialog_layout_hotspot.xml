@@ -6,7 +6,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:layout_margin="20dp">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textColor="@color/theme_neutral_dark_grey"
-                android:text="Your Hotspot is not switched on. Please switch it on below."/>
+                android:text="To use this mobile device as the internet access point for your IoT gateway you must turn Hotspot on: Yes  /  No"/>
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"

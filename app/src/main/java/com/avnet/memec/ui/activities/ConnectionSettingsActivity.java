@@ -172,10 +172,12 @@ public class ConnectionSettingsActivity extends BaseActivity {
                                 closeGatt();
                             /*}
                         },5000);*/
+                        MySingleton.getInstance().disconnectFlow = true;
                         Intent intent = new Intent(ConnectionSettingsActivity.this, GatewayListActivity.class);
                         intent.putExtra("ConnectionSettingsFlow", true);
                         startActivity(intent);
                         finish();
+                        dialog.dismiss();
                     }
                 });
                 Button close_dialog = (Button) dialog.findViewById(R.id.close_dialog);
