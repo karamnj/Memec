@@ -142,8 +142,10 @@ public class BaseActivity extends AppCompatActivity {
         }
         if(Build.VERSION.SDK_INT < 21) {
             initScanCallBackFor18();
+            Log.d("Version","<21");
         }else{
             initScanCallBackFor21();
+            Log.d("Version", "21>");
         }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -552,6 +554,7 @@ public class BaseActivity extends AppCompatActivity {
                                             SensorObject sensorObject = new SensorObject();
                                             sensorObject.setDeviceName("VT Sensor - ");
                                             sensorObject.setDeviceId(device.getAddress());
+                                            Log.d("Version <21","7");
                                             sensorObject.setSensors(readManufacturerSpecificData(scanRecord, 7));
                                             MySingleton.getInstance().sensorMap.put(device.getAddress(), sensorObject);
 
@@ -623,6 +626,7 @@ public class BaseActivity extends AppCompatActivity {
                         SensorObject sensorObject = new SensorObject();
                         sensorObject.setDeviceName("VT Sensor - ");
                         sensorObject.setDeviceId(result.getDevice().getAddress());
+                        Log.d("Version 21>", "2");
                         sensorObject.setSensors(readManufacturerSpecificData(scanResult, 2));
                         MySingleton.getInstance().sensorMap.put(result.getDevice().getAddress(), sensorObject);
 
@@ -653,6 +657,7 @@ public class BaseActivity extends AppCompatActivity {
                             SensorObject sensorObject = new SensorObject();
                             sensorObject.setDeviceName(sr.getDevice().getName());
                             sensorObject.setDeviceId(sr.getDevice().getAddress());
+                            Log.d("Version 21>", "2");
                             sensorObject.setSensors(readManufacturerSpecificData(scanResult, 2));
                             MySingleton.getInstance().sensorMap.put(sr.getDevice().getAddress(), sensorObject);
 
@@ -759,7 +764,7 @@ public class BaseActivity extends AppCompatActivity {
                     gatt.discoverServices();
                     break;
                 case BluetoothProfile.STATE_DISCONNECTED:
-                    Log.e("gattCallback", "STATE_DISCONNECTED "+stopHandler+"/"+disconnectFlow);
+                    Log.e("gattCallback", "STATE_DISCONNECTED "+stopHandler+"/"+disconnectFlow+"/"+MySingleton.getInstance().disconnectFlow);
                     disconnect();
                     closeGatt();
                     //if(MySingleton.getInstance().myGattList.contains(gatt)) {
@@ -786,6 +791,7 @@ public class BaseActivity extends AppCompatActivity {
                             finish();
                         }else if (stopHandler && !disconnectFlow && MySingleton.getInstance().disconnectFlow) {
                             Intent intent = new Intent(BaseActivity.this, GatewayListActivity.class);
+                            intent.putExtra("ConnectionSettingsFlow", true);
                             intent.putExtra("btDeviceList", btDeviceList);
                             startActivity(intent);
                             finish();

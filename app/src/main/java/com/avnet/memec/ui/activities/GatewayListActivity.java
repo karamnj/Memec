@@ -53,7 +53,6 @@ public class GatewayListActivity extends BaseActivity {
             btDevices = (ArrayList<BluetoothDevice>) getIntent().getSerializableExtra("btDeviceList");
             init();
         }
-
     }
     private void initDialogs() {
         //Gateway Success Dialog
@@ -69,6 +68,7 @@ public class GatewayListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 gfailure_dialog.dismiss();
+                scanGateway();
             }
         });
         //gfailure_dialog.show();

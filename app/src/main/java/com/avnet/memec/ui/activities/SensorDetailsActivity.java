@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class SensorDetailsActivity extends ViewSensorsActivity
     private BtDevice btDevice;
     private LayoutInflater mInflater;
     private ViewHolder holder = null;
+    Button backToHome;
 
     private static final int AVPROTOCOL_READING_TYPE_ACCELERATION = 1;
     private static final int AVPROTOCOL_READING_TYPE_GYROSCOPE = 2;
@@ -53,6 +55,7 @@ public class SensorDetailsActivity extends ViewSensorsActivity
         Log.d("EnvDataActivity", "onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor_details);
+        backToHome = (Button) findViewById(R.id.back_to_home);
 
         initializeBleBroadcastReceiver();
 
@@ -67,6 +70,16 @@ public class SensorDetailsActivity extends ViewSensorsActivity
         if(!isBleServiceRunning()){
             startBleService();
         }
+
+        backToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //stopViewSensors = true;
+                //Intent intent = new Intent(SensorDetailsActivity.this, ScanActivity.class);
+                //startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void addSensors(ArrayList<SensorData> list, LinearLayout holder){
@@ -130,6 +143,9 @@ public class SensorDetailsActivity extends ViewSensorsActivity
     @Override
     protected void onDestroy()
     {
+        Log.d("on destroy","sensor details");
+        MySingleton.getInstance().btDeviceHash.clear();
+        MySingleton.getInstance().sensorMap.clear();
         stopBleService();
         super.onDestroy();
     }
